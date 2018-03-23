@@ -5,7 +5,7 @@
     hour: "{{ lvssnap_creation_time.hour }}"
     minute: "{{ lvssnap_creation_time.minute }}"
     state: present
-    job: "umount {{ lvssnap_snapshot_mountpoint }} ; lvremove {{ lvssnap_snapshot_device }} -f ; (docker ps -q --no-trunc | xargs docker pause) ; mkdir -p {{ lvssnap_snapshot_mountpoint }} && lvcreate -l100%FREE -s -n docker_snap {{ lvssnap_lv_device }} && mount {{ lvssnap_snapshot_device }} {{ lvssnap_snapshot_mountpoint }} && (docker ps -q --no-trunc | xargs docker unpause)"
+    job: "umount {{ lvssnap_snapshot_mountpoint }} ; lvremove {{ lvssnap_snapshot_device }} -f ; (docker ps -q --no-trunc | xargs docker pause) ; mkdir -p {{ lvssnap_snapshot_mountpoint }} && lvcreate -l100\%FREE -s -n docker_snap {{ lvssnap_lv_device }} && mount {{ lvssnap_snapshot_device }} {{ lvssnap_snapshot_mountpoint }} && (docker ps -q --no-trunc | xargs docker unpause)"
 
 - name: Add cronjob for removing docker volume snapshot
   cron:
