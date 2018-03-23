@@ -1,0 +1,19 @@
+---
+- hosts: all
+  become: yes
+  vars:
+    lvssnap_creation_time:
+      hour: 21
+      minute: 50
+    lvssnap_deletion_time:
+      hour: 4
+      minute: 0
+    lvssnap_lv_device: /dev/data/docker
+    lvssnap_snapshot_device: /dev/data/docker_snap
+    lvssnap_snapshot_mountpoint: /media/docker_snap
+  pre_tasks:
+    - name: Install cron (RedHat).
+      yum: name=cronie state=present
+      when: ansible_os_family == 'RedHat'
+  roles:
+    - role_under_test
