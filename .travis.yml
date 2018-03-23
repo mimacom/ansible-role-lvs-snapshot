@@ -16,9 +16,6 @@ script:
   # Run tests.
   - ${PWD}/tests/test.sh
 
-  # Install curl for testing purposes
-  - 'docker exec --tty ${container_id} env TERM=xterm ${pkg_manager} install -y curl'
-
   # Check if cronjobs have been applied
   - 'docker exec --tty ${container_id} env TERM=xterm crontab -l | grep dockervolumesnap'
 
